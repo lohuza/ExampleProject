@@ -29,7 +29,7 @@ namespace Example.API.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login(UserLoginResource credentials)
+        public async Task<IActionResult> Login([FromBody]UserLoginResource credentials)
         {
             // radgan mxolod ID mchirdeba mxolod magas davabrunebineb repos
             // realurad object unda dabrundes magram... 
@@ -51,13 +51,16 @@ namespace Example.API.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register(UserRegisterResource registerResource)
+        public async Task<IActionResult> Register([FromBody]UserRegisterResource registerResource)
         {
             var user = _mapper.Map<UserRegisterResource, User>(registerResource);
             await _repository.RegisterAsync(user, registerResource.Password);
-            var loginCredentials = _mapper.Map<UserRegisterResource, UserLoginResource>(registerResource);
+            //var loginCredentials = _mapper.Map<UserRegisterResource, UserLoginResource>(registerResource);
 
-            return RedirectToAction(nameof(Login), loginCredentials);
+            var token = _jwtFactory.GenerateEncodedToken(user.Id);
+            var refreshToken = _tokenFactory.GenerateToken();
+
+            return Ok(new { token, refreshToken });
         }
 
         // TODO: add refresh token functionality

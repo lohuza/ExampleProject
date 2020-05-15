@@ -21,5 +21,10 @@ namespace Example.Infrastructure.Repositories
         {
             return _context.Users.Where(u => u.Id == userId).FirstOrDefault()?.Contacts;
         }
+
+        public async Task AddContactAsync(Contact contact)
+        {
+            await _context.Contacts.AddAsync(contact);
+        }
     }
 }

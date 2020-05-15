@@ -6,21 +6,23 @@ using AutoMapper;
 using Example.Domain.Interfaces;
 using Example.Domain.Models;
 using Example.Domain.Resources.Contacts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Example.API.Controllers
 {
+    [Authorize]
     [Route("api/{username}/[controller]")]
     public class ContactsController : JwtController
     {
         private readonly IContactsRepository _repository;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public ContactsController(IContactsRepository repository, IMapper mapper)
+        public ContactsController(IContactsRepository repository, IUnitOfWork unitOfWork, IMapper mapper)
         {
             _repository = repository;
+            _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
 
@@ -35,11 +37,15 @@ namespace Example.API.Controllers
         }
 
         [HttpPost]
-        public void Post([FromBody]string value)
+        public async Task<IActionResult> Post([FromBody]AddContactResource contactResource)
         {
+            var contact = _mapper.Map<AddContactResource, Contact>(contactResource);
+            await _repository.AddContactAsync(contact);
+
+            // simartivistvis ubralod ok davabruneb
+            return Ok();
         }
 
-        // DELETE api/values/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {

@@ -27,6 +27,7 @@ namespace Example.Domain.Mappings
 
             // API resources to Domain
             CreateMap<UserRegisterResource, User>();
+            CreateMap<AddContactResource, Contact>();
 
 
             // API resources

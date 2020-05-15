@@ -17,6 +17,7 @@ namespace Example.Infrastructure.Repositories
 
         public UsersRepository(ExampleDbContext context, IHashHelper hashHelper)
         {
+            _context = context;
             _hashHelper = hashHelper;
         }
 
