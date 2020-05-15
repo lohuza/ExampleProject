@@ -15,6 +15,7 @@ namespace Example.Infrastructure.Repositories
 
         public ContactsRepository(ExampleDbContext context)
         {
+            _context = context;
         }
 
         public IEnumerable<Contact> GetUserContacts(int userId)

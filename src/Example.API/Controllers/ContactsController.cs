@@ -41,6 +41,7 @@ namespace Example.API.Controllers
         {
             var contact = _mapper.Map<AddContactResource, Contact>(contactResource);
             await _repository.AddContactAsync(contact);
+            await _unitOfWork.SaveChangesAsync();
 
             // simartivistvis ubralod ok davabruneb
             return Ok();
