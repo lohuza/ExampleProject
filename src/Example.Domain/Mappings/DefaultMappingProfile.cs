@@ -1,0 +1,36 @@
+﻿using System;
+using System.Linq;
+using AutoMapper;
+using Example.Domain.Models;
+using Example.Domain.Resources.Contacts;
+using Example.Domain.Resources.Users;
+
+// patara kodia da mxolod 1 mapping profile meqneba
+namespace Example.Domain.Mappings
+{
+    public class DefaultMappingProfile : Profile
+    {
+        public DefaultMappingProfile()
+        {
+            // Domain to API resources
+            CreateMap<Contact, ContactResource>()
+                .AfterMap((c, cr) =>
+                {
+                    var phoneNumbers = c.PhoneNumbers.Select(pn => pn.Phone); // SelectMany(pn => pn.Phone);
+
+                    foreach (var phoneNumber in phoneNumbers)
+                    {
+                        cr.PhoneNumbers.Add(phoneNumber);
+                    }
+                });
+
+
+            // API resources to Domain
+            CreateMap<UserRegisterResource, User>();
+
+
+            // API resources
+            CreateMap<UserRegisterResource, UserLoginResource>();
+        }
+    }
+}
