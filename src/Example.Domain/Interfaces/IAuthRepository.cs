@@ -5,7 +5,7 @@ using Example.Domain.Resources.Users;
 
 namespace Example.Domain.Interfaces
 {
-    public interface IUsersRepository
+    public interface IAuthRepository
     {
         Task<User> LoginAsync(UserLoginResource credentials);
         Task<User> RegisterAsync(User user, string password);

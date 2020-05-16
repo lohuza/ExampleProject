@@ -10,12 +10,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Example.Infrastructure.Repositories
 {
-    public class UsersRepository : IUsersRepository
+    public class AuthRepository : IAuthRepository
     {
         private readonly ExampleDbContext _context;
         private readonly IHashHelper _hashHelper;
 
-        public UsersRepository(ExampleDbContext context, IHashHelper hashHelper)
+        public AuthRepository(ExampleDbContext context, IHashHelper hashHelper)
         {
             _context = context;
             _hashHelper = hashHelper;

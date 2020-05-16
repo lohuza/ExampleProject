@@ -3,6 +3,7 @@ using System.Linq;
 using AutoMapper;
 using Example.Domain.Models;
 using Example.Domain.Resources.Contacts;
+using Example.Domain.Resources.PhoneNumbers;
 using Example.Domain.Resources.Users;
 
 // patara kodia da mxolod 1 mapping profile meqneba
@@ -28,10 +29,7 @@ namespace Example.Domain.Mappings
             // API resources to Domain
             CreateMap<UserRegisterResource, User>();
             CreateMap<AddContactResource, Contact>();
-
-
-            // API resources
-            CreateMap<UserRegisterResource, UserLoginResource>();
+            CreateMap<AddPhoneNumberResource, PhoneNumber>();
         }
     }
 }

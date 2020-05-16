@@ -15,12 +15,12 @@ namespace Example.API.Controllers
     [Route("api/[controller]")]
     public class AuthController : Controller
     {
-        private readonly IUsersRepository _repository;
+        private readonly IAuthRepository _repository;
         private readonly IJwtFactory _jwtFactory;
         private readonly ITokenFactory _tokenFactory;
         private readonly IMapper _mapper;
 
-        public AuthController(IUsersRepository repository, IJwtFactory jwtFactory, ITokenFactory tokenFactory, IMapper mapper)
+        public AuthController(IAuthRepository repository, IJwtFactory jwtFactory, ITokenFactory tokenFactory, IMapper mapper)
         {
             _repository = repository;
             _jwtFactory = jwtFactory;

@@ -7,7 +7,9 @@ namespace Example.Domain.Interfaces
 {
     public interface IContactsRepository
     {
-        Task AddContactAsync(Contact contact);
-        IEnumerable<Contact> GetUserContacts(int userId);
+        Task AddContactAsync(Contact contact, int userId);
+        void DeleteContact(Contact contact);
+        Task<Contact> GetContactAsync(int contactId);
+        IEnumerable<Contact> GetContacts(int userId);
     }
 }

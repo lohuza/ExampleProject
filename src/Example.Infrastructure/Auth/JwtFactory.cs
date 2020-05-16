@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using Example.Domain.Enums;
 using Example.Domain.Helpers.Configuration;
 using Example.Domain.Interfaces;
 using Microsoft.Extensions.Options;
@@ -29,7 +30,7 @@ namespace Example.Infrastructure.Auth
             var claims = new[]
             {
                 // adding only id for simplicity
-                new Claim("userId", userId.ToString()),
+                new Claim(ClaimsEnum.userId.ToString(), userId.ToString()),
                 new Claim(JwtRegisteredClaimNames.Iat, ToUnixEpochDate(_jwtOptions.IssuedAt).ToString(), ClaimValueTypes.Integer64),
             };
 

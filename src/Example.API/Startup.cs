@@ -19,6 +19,8 @@ using Example.Domain.Interfaces;
 using Example.Infrastructure.Repositories;
 using Example.Infrastructure.Auth;
 using Example.Infrastructure.Helpers;
+using Microsoft.AspNetCore.Authorization;
+using Example.Domain.Enums;
 
 namespace Example.API
 {
@@ -113,6 +115,20 @@ namespace Example.API
                         .AllowAnyHeader());
             });
 
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy(PolicyEnum.ContactOwner.ToString(),
+                        policy => policy.Requirements.Add(new ContactBelongsToUserRequirement())
+                    );
+                options.AddPolicy(PolicyEnum.PhoneNumberOwner.ToString(),
+                        policy => policy.Requirements.Add(new PhoneNumberBelongsToUserRequirement())
+                    );
+            });
+
+            // Auth
+            services.AddSingleton<IAuthorizationHandler, ContactAuthorizationHandler>();
+            services.AddSingleton<IAuthorizationHandler, PhoneNumberAuthorizationHandler>();
+
             // token generator services
             services.AddSingleton<IJwtTokenHandler, JwtTokenHandler>();
             services.AddSingleton<ITokenFactory, TokenFactory>();
@@ -124,7 +140,7 @@ namespace Example.API
 
             // repos
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddScoped<IUsersRepository, UsersRepository>();
+            services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<IContactsRepository, ContactsRepository>();
             services.AddScoped<IPhoneNumbersRepository, PhoneNumbersRepository>();
 
