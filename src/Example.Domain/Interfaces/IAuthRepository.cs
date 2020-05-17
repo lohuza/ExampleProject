@@ -9,5 +9,6 @@ namespace Example.Domain.Interfaces
     {
         Task<User> LoginAsync(UserLoginResource credentials);
         Task<User> RegisterAsync(User user, string password);
+        Task<bool> UsernameExists(string username);
     }
 }

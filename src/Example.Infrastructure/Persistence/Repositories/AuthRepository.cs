@@ -45,5 +45,10 @@ namespace Example.Infrastructure.Repositories
 
             return user;
         }
+
+        public async Task<bool> UsernameExists(string username)
+        {
+            return await _context.Users.AnyAsync(u => u.UserName == username);
+        }
     }
 }

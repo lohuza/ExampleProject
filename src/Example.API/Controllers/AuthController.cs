@@ -58,12 +58,13 @@ namespace Example.API.Controllers
                 return BadRequest(ModelState);
             }
 
+            if (await _repository.UsernameExists(registerResource.Username))
+            {
+                return BadRequest("username exists");
+            }
+
             var user = _mapper.Map<UserRegisterResource, User>(registerResource);
             await _repository.RegisterAsync(user, registerResource.Password);
-            //var loginCredentials = _mapper.Map<UserRegisterResource, UserLoginResource>(registerResource);
-
-            //var token = _jwtFactory.GenerateEncodedToken(user.Id);
-            //var refreshToken = _tokenFactory.GenerateToken();
 
             return Ok();
         }
