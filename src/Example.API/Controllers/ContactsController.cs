@@ -36,7 +36,7 @@ namespace Example.API.Controllers
         public IEnumerable<ContactResource> Get()
         {
             int userId = GetUserId();
-            var contacts = _repository.GetContacts(userId);
+            var contacts = _repository.GetContacts(userId, true);
             var userContacts = _mapper.Map<IEnumerable<Contact>, IEnumerable<ContactResource>> (contacts);
 
             return userContacts;

@@ -180,6 +180,7 @@ namespace Example.API
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseCookieAuthentication();
 
             app.UseEndpoints(endpoints =>
             {

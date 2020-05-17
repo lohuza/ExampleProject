@@ -18,24 +18,19 @@ namespace Example.Infrastructure.Repositories
             _context = context;
         }
 
-        public IEnumerable<Contact> GetContacts(int userId)
+        public IEnumerable<Contact> GetContacts(int userId, bool includePhones = false)
         {
-            return _context.Users.Include(u => u.Contacts)
-                .FirstOrDefault(u => u.Id == userId)?.Contacts;
+            if (includePhones)
+            {
+                return _context.Contacts.Include(c => c.PhoneNumbers) 
+                    .Where(c => c.UserId == userId);
+            }
+            
+            return _context.Contacts.Where(c => c.UserId == userId);
         }
 
         public async Task<Contact> GetContactAsync(int contactId)
         {
-    //        var user = await _context.Users.Include(u => u.Contacts)
-    //.FirstOrDefaultAsync(u => u.Id == userId && u.Contacts.Any(c => c.Id == contactId));
-
-    //        return user?.Contacts.FirstOrDefault();
-
-            //var item = await _context.Users.Include(u => u.Contacts)
-            //    .Where(u => u.Id == userId && u.Contacts.Any(c => c.Id == contactId))
-            //    .Select(i => i.Contacts.FirstOrDefault())
-            //    .FirstOrDefaultAsync();
-
             var contact = await _context.Contacts.FirstOrDefaultAsync(c => c.Id == contactId);
 
             return contact;

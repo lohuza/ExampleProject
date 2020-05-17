@@ -53,16 +53,26 @@ namespace Example.API.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody]UserRegisterResource registerResource)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             var user = _mapper.Map<UserRegisterResource, User>(registerResource);
             await _repository.RegisterAsync(user, registerResource.Password);
             //var loginCredentials = _mapper.Map<UserRegisterResource, UserLoginResource>(registerResource);
 
-            var token = _jwtFactory.GenerateEncodedToken(user.Id);
-            var refreshToken = _tokenFactory.GenerateToken();
+            //var token = _jwtFactory.GenerateEncodedToken(user.Id);
+            //var refreshToken = _tokenFactory.GenerateToken();
 
-            return Ok(new { token, refreshToken });
+            return Ok();
         }
 
         // TODO: add refresh token functionality
+        //[HttpPost("refreshtoken")]
+        //public async Task<IActionResult> RefreshToken()
+        //{
+
+        //}
     }
 }

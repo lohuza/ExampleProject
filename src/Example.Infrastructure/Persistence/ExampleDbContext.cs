@@ -9,6 +9,7 @@ namespace Example.Infrastructure.Persistence
         public DbSet<User> Users { get; set; }
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<PhoneNumber> PhoneNumbers { get; set; }
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
 
         public ExampleDbContext(DbContextOptions<ExampleDbContext> options) : base(options)
         {
@@ -26,6 +27,8 @@ namespace Example.Infrastructure.Persistence
 
             modelBuilder.Entity<PhoneNumber>().HasIndex(pn =>
                 new { pn.Phone, pn.ContactId }).IsUnique();
+
+            modelBuilder.Entity<RefreshToken>().HasIndex(rt => rt.Token);
         }
     }
 }

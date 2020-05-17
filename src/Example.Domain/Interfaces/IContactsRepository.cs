@@ -10,6 +10,6 @@ namespace Example.Domain.Interfaces
         Task AddContactAsync(Contact contact, int userId);
         void DeleteContact(Contact contact);
         Task<Contact> GetContactAsync(int contactId);
-        IEnumerable<Contact> GetContacts(int userId);
+        IEnumerable<Contact> GetContacts(int userId, bool includePhones = false);
     }
 }

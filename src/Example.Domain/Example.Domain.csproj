@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
     <Folder Include="Mappings\" />
     <Folder Include="Helpers\" />
     <Folder Include="Helpers\Configuration\" />
